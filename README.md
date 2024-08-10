@@ -1,7 +1,8 @@
 # DecoLite
+
 [![Ruby](https://github.com/gangelo/deco_lite/actions/workflows/ruby.yml/badge.svg)](https://github.com/gangelo/deco_lite/actions/workflows/ruby.yml)
-[![GitHub version](http://badge.fury.io/gh/gangelo%2Fdeco_lite.svg?refresh=6)](https://badge.fury.io/gh/gangelo%2Fdeco_lite)
-[![Gem Version](https://badge.fury.io/rb/deco_lite.svg?refresh=6)](https://badge.fury.io/rb/deco_lite)
+[![GitHub version](http://badge.fury.io/gh/gangelo%2Fdeco_lite.svg?refresh=7)](https://badge.fury.io/gh/gangelo%2Fdeco_lite)
+[![Gem Version](https://badge.fury.io/rb/deco_lite.svg?refresh=7)](https://badge.fury.io/rb/deco_lite)
 [![](http://ruby-gem-downloads-badge.herokuapp.com/deco_lite?type=total)](http://www.rubydoc.info/gems/deco_lite/)
 [![Documentation](http://img.shields.io/badge/docs-rdoc.info-blue.svg)](http://www.rubydoc.info/gems/deco_lite/)
 [![Report Issues](https://img.shields.io/badge/report-issues-red.svg)](https://github.com/gangelo/deco_lite/issues)
@@ -9,11 +10,11 @@
 
 ## Introduction
 
-*DecoLite* is a little gem that allows you to use the provided `DecoLite::Model` class to dynamically create Decorator class objects. Use the `DecoLite::Model` class directly, or inherit from the `DecoLite::Model` class to create your own unique subclasses with custom functionality. `DecoLite::Model` includes `ActiveModel::Model`, so validation can be applied using [ActiveModel validation helpers](https://api.rubyonrails.org/v6.1.3/classes/ActiveModel/Validations/HelperMethods.html) you're familiar with; or, you can roll your own - just like any other `ActiveModel`.
+_DecoLite_ is a little gem that allows you to use the provided `DecoLite::Model` class to dynamically create Decorator class objects. Use the `DecoLite::Model` class directly, or inherit from the `DecoLite::Model` class to create your own unique subclasses with custom functionality. `DecoLite::Model` includes `ActiveModel::Model`, so validation can be applied using [ActiveModel validation helpers](https://api.rubyonrails.org/v6.1.3/classes/ActiveModel/Validations/HelperMethods.html) you're familiar with; or, you can roll your own - just like any other `ActiveModel`.
 
-`DecoLite::Model` allows you to consume a Ruby `Hash` that you supply via the initializer (`DecoLite::Model#new`) or via the `DecoLite::Model#load!` method. Any number of Ruby `Hashes` can be consumed. Your supplied Ruby Hashes are used to create `attr_accessor` attributes (or *"fields"*) on the model. Each attribute created is then assigned the value from the Hash that was loaded. Again, any number of hashes can be consumed using the `DecoLite::Model#load!` method.
+`DecoLite::Model` allows you to consume a Ruby `Hash` that you supply via the initializer (`DecoLite::Model#new`) or via the `DecoLite::Model#load!` method. Any number of Ruby `Hashes` can be consumed. Your supplied Ruby Hashes are used to create `attr_accessor` attributes (or _"fields"_) on the model. Each attribute created is then assigned the value from the Hash that was loaded. Again, any number of hashes can be consumed using the `DecoLite::Model#load!` method.
 
-`attr_accessors` created during initialization, or by calling `DecoLite::Model#load!`, are *mangled* to include namespacing. This allows `DecoLite` to create *unique* attribute names for nested Hashes that may have non-unique key names. For example:
+`attr_accessors` created during initialization, or by calling `DecoLite::Model#load!`, are _mangled_ to include namespacing. This allows `DecoLite` to create _unique_ attribute names for nested Hashes that may have non-unique key names. For example:
 
 ```ruby
 # NOTE: keys :name and :age are not unique across this Hash.
@@ -28,7 +29,8 @@ family = {
   }
 }
 ```
-Given the above example, `DecoLite` will produce the following *unique* `attr_accessors` on the `DecoLite::Model` object, and assign the values:
+
+Given the above example, `DecoLite` will produce the following _unique_ `attr_accessors` on the `DecoLite::Model` object, and assign the values:
 
 ```ruby
 # Instead of the below, you can also use DecoLite::Model.new.load!(hash: family)
@@ -41,11 +43,11 @@ model.wife_name #=> 'Mary Doe'
 model.wife_age #=> 30
 ```
 
-In the above example, notice how `DecoLite` *mangles* attributes `:wife_name` and `:wife_age` using the `:wife` `Hash` key name to make them unique.
+In the above example, notice how `DecoLite` _mangles_ attributes `:wife_name` and `:wife_age` using the `:wife` `Hash` key name to make them unique.
 
-`DecoLite::Model#load!` can be called *multiple times*, on the same model using different `Hashes`. This could potentially cause `attr_accessor` name clashes. In order to ensure unique `attr_accessor` names, a *"namespace"* may be *explicitly* provided to ensure attribute name uniqueness.
+`DecoLite::Model#load!` can be called _multiple times_, on the same model using different `Hashes`. This could potentially cause `attr_accessor` name clashes. In order to ensure unique `attr_accessor` names, a _"namespace"_ may be _explicitly_ provided to ensure attribute name uniqueness.
 
-For example, **continuing from the previous example,** if we were to call `DecoLite::Model#load!` a *second time* with the following `Hash`, this would produce `attr_accessor` name clashes which would raise errors, because `:name` and `:age` attributes already exist on the `DecoLite::Model` in question:
+For example, **continuing from the previous example,** if we were to call `DecoLite::Model#load!` a _second time_ with the following `Hash`, this would produce `attr_accessor` name clashes which would raise errors, because `:name` and `:age` attributes already exist on the `DecoLite::Model` in question:
 
 ```ruby
 grandpa = {
@@ -76,10 +78,12 @@ For more examples and usage, see the [Examples and usage](#examples-and-usage) a
 ## Use cases
 
 ### Generally Speaking
-`DecoLite` would *most likely* thrive where the structure of the `Hashe(s)` consumed are (of course) known, relatively small to moderate in size, and not *terribly* deep nested-hash-wise. This is because of the way `DecoLite` mangles loaded Hash key names to create unique `attr_accessors` on the model (see the Introduction section). However, I'm sure there are some geniuses out there that would find other contexts where `DecoLite` may thrive. Assuming the former is the case, `DecoLite` would be ideal to consume Model attributes, Webservice JSON results (converted to Ruby `Hash`), JSON Web Token (JWT) payloads, etc. to create a cohesive data model to be used in any scenario.
+
+`DecoLite` would _most likely_ thrive where the structure of the `Hashe(s)` consumed are (of course) known, relatively small to moderate in size, and not _terribly_ deep nested-hash-wise. This is because of the way `DecoLite` mangles loaded Hash key names to create unique `attr_accessors` on the model (see the Introduction section). However, I'm sure there are some geniuses out there that would find other contexts where `DecoLite` may thrive. Assuming the former is the case, `DecoLite` would be ideal to consume Model attributes, Webservice JSON results (converted to Ruby `Hash`), JSON Web Token (JWT) payloads, etc. to create a cohesive data model to be used in any scenario.
 
 ### Rails
-Because `DecoLite::Model` includes `ActiveModel::Model`, it could also be ideal for use as a model in Rails applications, where a *decorator pattern* might be used, and decorator methods provided for use in Rails views; for example:
+
+Because `DecoLite::Model` includes `ActiveModel::Model`, it could also be ideal for use as a model in Rails applications, where a _decorator pattern_ might be used, and decorator methods provided for use in Rails views; for example:
 
 ```ruby
 class ViewModel < DecoLite::Model
@@ -105,9 +109,10 @@ view_model.full_name
 view_model.salutation
 => "<span class='happy'>Hello <em>John Doe<em>, welcome back!</span>"
 ```
+
 ### Etc., etc., etc.
 
-Get creative. Please pop me an email and let me know how *you're* using `DecoLite`.
+Get creative. Please pop me an email and let me know how _you're_ using `DecoLite`.
 
 ## Examples and usage
 
@@ -166,13 +171,14 @@ model.wife_name             #=> Amy Doe
 model.wife_info_age         #=> 20
 model.wife_info_address     #=> 1 street, boonton, nj 07005
 ```
+
 ## More examples and usage
 
 ### I want to...
 
 #### Add validators to my model
 
-Simply add your `ActiveModel` validators just like you would any other `ActiveModel::Model` validator, with one caveat noted below. It is important to note that any attribute (field) having an *explicit validation* associated with it, will automatically cause `DecoLite` to create an `attr_accessor` for that field; this is to avoid `NoMethodErrors` when validating the model (e.g. `#valid?`, `#validate`, etc.) *before* the data is loaded. Why does `DecoLite` need to do this? Typically, `DecoLite` dynamically creates `attr_accessors` using the keys from the `Hash` loaded into the model. If the `Hash` loaded into your `DecoLite` model _does not_ include a `Hash` key for the attribute referenced by any validators on your model, `DecoLite` will not create an `attr_accessor` for it; consequently, calling any validation method (e.g. `#valid?`, `#validate`, etc.) on your model will result in a `NoMethodError` for that attribute.
+Simply add your `ActiveModel` validators just like you would any other `ActiveModel::Model` validator, with one caveat noted below. It is important to note that any attribute (field) having an _explicit validation_ associated with it, will automatically cause `DecoLite` to create an `attr_accessor` for that field; this is to avoid `NoMethodErrors` when validating the model (e.g. `#valid?`, `#validate`, etc.) _before_ the data is loaded. Why does `DecoLite` need to do this? Typically, `DecoLite` dynamically creates `attr_accessors` using the keys from the `Hash` loaded into the model. If the `Hash` loaded into your `DecoLite` model _does not_ include a `Hash` key for the attribute referenced by any validators on your model, `DecoLite` will not create an `attr_accessor` for it; consequently, calling any validation method (e.g. `#valid?`, `#validate`, etc.) on your model will result in a `NoMethodError` for that attribute.
 
 One caveat to note is when using Rails custom validators with `validates_with`. When using Rails custom validators via `validates_with`, you should pass the attribute names being validated to your custom validator via the `#options` `Hash` with a key of either `:attributes` or `:fields`. This is so that `DecoLite` can create dynamic `attr_accessors` for these attributes and avoid the aformentioned `NoMethodError` (see above):
 
@@ -205,12 +211,13 @@ model.valid?
 
 #### Validate whether or not certain fields were loaded
 
-To be clear, this example does not validate the *data* associated with the fields loaded; rather, this example validates whether or not the *fields themselves* were loaded into your model, and as a result, `attr_accessors` created *for* them on the model. If you only want to validate the *data* loaded into your model, simply use `ActiveModel` validations, just like you would any other `ActiveModel` model (see the [Add validators to my model](#add-validators-to-my-model) section).
+To be clear, this example does not validate the _data_ associated with the fields loaded; rather, this example validates whether or not the _fields themselves_ were loaded into your model, and as a result, `attr_accessors` created _for_ them on the model. If you only want to validate the _data_ loaded into your model, simply use `ActiveModel` validations, just like you would any other `ActiveModel` model (see the [Add validators to my model](#add-validators-to-my-model) section).
 
-If you want to validate whether or not particular *fields* were loaded into your model, as a result of `#load!`ing data into your model, you need to add the required field names to the `DecoLite::Model#required_fields` attribute, or use inheritance:
-  - Create a `DecoLite::Model` subclass.
-  - Override the `DecoLite::Model#required_fields` method.
-  - Return an Array of `Symbols` that represent the fields you want to validate (e.g. `%i[first last ssn]`).
+If you want to validate whether or not particular _fields_ were loaded into your model, as a result of `#load!`ing data into your model, you need to add the required field names to the `DecoLite::Model#required_fields` attribute, or use inheritance:
+
+- Create a `DecoLite::Model` subclass.
+- Override the `DecoLite::Model#required_fields` method.
+- Return an Array of `Symbols` that represent the fields you want to validate (e.g. `%i[first last ssn]`).
 
 For example:
 
@@ -234,7 +241,7 @@ model.errors.full_messages
 #=> ["First field is missing", "Last field is missing", "Address field is missing"]
 ```
 
-If we load data that includes :first, :last, and :address Hash keys, even with nil data, our `":<field> field is missing"` errors would go away; in this scenario, we only wish to validate the *presence of the FIELDS,* not the data associated with these fields!
+If we load data that includes :first, :last, and :address Hash keys, even with nil data, our `":<field> field is missing"` errors would go away; in this scenario, we only wish to validate the _presence of the FIELDS,_ not the data associated with these fields!
 
 ```ruby
 model.load!(hash: { first: nil, last: nil, address: nil })
@@ -260,11 +267,12 @@ model.validate
 model.errors.full_messages
 #=> ["Age is not a number"]
 ```
-#### Validate whether or not certain fields were loaded *and* validate the data associated with these same fields
 
-If you simply want to validate the *data* loaded into your model, simply add `ActiveModel` validation, just like you would any other `ActiveModel` model (see the [Add validators to my model](#add-validators-to-my-model) section).
+#### Validate whether or not certain fields were loaded _and_ validate the data associated with these same fields
 
-If you want to validate whether or not particular fields were loaded *and* the field data associated with those same fields, you simply need to return the required fields from the `DecoLite#required_fields` method and add the appropriate validation(s); for example:
+If you simply want to validate the _data_ loaded into your model, simply add `ActiveModel` validation, just like you would any other `ActiveModel` model (see the [Add validators to my model](#add-validators-to-my-model) section).
+
+If you want to validate whether or not particular fields were loaded _and_ the field data associated with those same fields, you simply need to return the required fields from the `DecoLite#required_fields` method and add the appropriate validation(s); for example:
 
 ```ruby
 class Model < DecoLite::Model
@@ -294,7 +302,7 @@ model.errors.full_messages
 
 #### Manually define attributes (fields) on my model
 
-Manually defining attributes on your subclass is possible, although there doesn't seem a valid reason to do so, since you can just use `DecoLite::Model#load!` to wire all this up for you automatically. However, if there *were* a need to do this, you must add your `attr_reader` to the `DecoLite::Model@field_names` array, or an error will be raised _provided_ there are any conflicting field names being loaded using `DecoLite::Model#load!`. Note that the aforementioned error will be raised regardless of whether or not you set `options: { fields: :merge }`. This is because `DecoLite` considers any existing model attributes *not* added to the model via `load!`*to be native to the model object,* and therefore will not allow you to create `attr_accessors` and assign values to existing model attributes because this can potentially be dangerous.
+Manually defining attributes on your subclass is possible, although there doesn't seem a valid reason to do so, since you can just use `DecoLite::Model#load!` to wire all this up for you automatically. However, if there _were_ a need to do this, you must add your `attr_reader` to the `DecoLite::Model@field_names` array, or an error will be raised _provided_ there are any conflicting field names being loaded using `DecoLite::Model#load!`. Note that the aforementioned error will be raised regardless of whether or not you set `options: { fields: :merge }`. This is because `DecoLite` considers any existing model attributes _not_ added to the model via `load!`_to be native to the model object,_ and therefore will not allow you to create `attr_accessors` and assign values to existing model attributes because this can potentially be dangerous.
 
 To avoid errors when manually defining model attributes that could potentially conflict with fields loaded using `DecoLite::Model#load!`, you could do the following:
 
