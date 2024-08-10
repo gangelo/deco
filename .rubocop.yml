@@ -1,5 +1,6 @@
 require:
   - rubocop-performance
+  - rubocop-rake
   - rubocop-rspec
 
 AllCops:
@@ -7,14 +8,14 @@ AllCops:
   TargetRubyVersion: 3.1.2
   NewCops: enable
   Exclude:
-    - '.git/**/*'
-    - '.idea/**/*'
-    - 'init/*'
-    - 'Rakefile'
-    - '*.gemspec'
-    - 'spec/**/*'
-    - 'vendor/**/*'
-    - 'scratch*.rb'
+    - ".git/**/*"
+    - ".idea/**/*"
+    - "init/*"
+    - "Rakefile"
+    - "*.gemspec"
+    - "spec/**/*"
+    - "vendor/**/*"
+    - "scratch*.rb"
 
 # Align the elements of a hash literal if they span more than one line.
 Layout/HashAlignment:
@@ -79,7 +80,7 @@ Layout/MultilineMethodCallIndentation:
 # Allow `debug` in tasks for now
 Lint/Debugger:
   Exclude:
-    - 'RakeFile'
+    - "RakeFile"
 
 # A calculated magnitude based on number of assignments, branches, and
 #   conditions.
@@ -91,9 +92,9 @@ Metrics/AbcSize:
 # Avoid long blocks with many lines.
 Metrics/BlockLength:
   Exclude:
-    - 'RakeFile'
-    - 'db/seeds.rb'
-    - 'spec/**/*.rb'
+    - "RakeFile"
+    - "db/seeds.rb"
+    - "spec/**/*.rb"
 
 # Avoid classes longer than 100 lines of code.
 # NOTE: This is temporarily disabled until we can eliminate existing Rubocop
@@ -101,7 +102,7 @@ Metrics/BlockLength:
 Metrics/ClassLength:
   Max: 200
   Exclude:
-    - 'spec/**/*.rb'
+    - "spec/**/*.rb"
 
 # A complexity metric that is strongly correlated to the number of test cases
 #   needed to validate a method.
@@ -111,8 +112,8 @@ Metrics/CyclomaticComplexity:
 # Limit lines to 80 characters
 Layout/LineLength:
   Exclude:
-    - 'RakeFile'
-    - 'spec/**/*.rb'
+    - "RakeFile"
+    - "spec/**/*.rb"
 
 # Avoid methods longer than 15 lines of code.
 Metrics/MethodLength:
@@ -120,7 +121,6 @@ Metrics/MethodLength:
   AllowedMethods:
     - swagger_path
     - operation
-
 
 # A complexity metric geared towards measuring complexity for a human reader.
 Metrics/PerceivedComplexity:
@@ -158,7 +158,7 @@ Style/GuardClause:
 
 Style/MixinUsage:
   Exclude:
-    - 'RakeFile'
+    - "RakeFile"
 
 # Avoid multi-line method signatures.
 Style/MultilineMethodSignature:
